@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 50%;
+            min-width: 300px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            margin-top: 30px;
+        }
+
+        .output h3 {
+            margin-bottom: 10px;
+        }
+
+        .output ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .output li {
+            background: #e0f7fa;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fake News Detection System</h1>
+
+    <div class="container">
+        <form method="POST" action="/predict">
+            <textarea name="news" placeholder="Enter news content..."></textarea>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predictions %}
+        <div class="output">
+            <h3>Predictions:</h3>
+            <ul>
+                {% for model, result in predictions.items() %}
+                    <li><strong>{{ model }}:</strong> {{ result }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% elif error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
